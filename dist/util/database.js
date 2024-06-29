@@ -15,14 +15,14 @@ class DataBase {
     constructor(emitter, options) {
         const data = { ...options };
         data.type = data.type ?? 'sqlite';
-        if (data.type != 'mongodb')
+        if (data.type != 'mongoose')
             data.database = data.database ?? 'forge.db';
         const config = { ...data };
-        if (config.type == 'mongodb')
+        if (config.type == 'mongoose')
             Object.assign(config, { useUnifiedTopology: true });
         DataBase.entities = {
-            record: data.type == 'mongodb' ? types_1.MongoRecord : types_1.Record,
-            cd: data.type == 'mongodb' ? types_1.MongoCooldown : types_1.Cooldown
+            record: data.type == 'mongoose' ? types_1.MongoRecord : types_1.Record,
+            cd: data.type == 'mongoose' ? types_1.MongoCooldown : types_1.Cooldown
         };
         DataBase.emitter = emitter;
         const db = new typeorm_1.DataSource({
