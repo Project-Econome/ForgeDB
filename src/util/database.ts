@@ -21,14 +21,14 @@ export class DataBase {
     constructor(emitter: TypedEmitter<TransformEvents<IDBEvents>>,options?: IDataBaseOptions) {
         const data = {...options}
         data.type = data.type ?? 'sqlite'
-        if(data.type != 'mongodb') data.database = data.database ?? 'forge.db'
+        if(data.type != 'mongoose') data.database = data.database ?? 'forge.db'
         
         const config = {...data} as DataSourceOptions
-        if(config.type == 'mongodb') Object.assign(config, {useUnifiedTopology: true})
+        if(config.type == 'mongoose') Object.assign(config, {useUnifiedTopology: true})
 
         DataBase.entities = {
-            record: data.type == 'mongodb' ? MongoRecord : Record,
-            cd: data.type == 'mongodb' ? MongoCooldown : Cooldown
+            record: data.type == 'mongoose' ? MongoRecord : Record,
+            cd: data.type == 'mongoose' ? MongoCooldown : Cooldown
         }
         DataBase.emitter = emitter
         
